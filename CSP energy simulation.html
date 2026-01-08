@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mars Construction Energy Simulation</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #5a2416;
+        color: white;
+        text-align: center;
+    }
+
+    h1 {
+        margin-top: 20px;
+    }
+
+    #main {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+    }
+
+    .zone {
+        width: 45%;
+        background-color: #7a3321;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .surface {
+        height: 260px;
+        background: linear-gradient(#b1442a, #5a2416);
+        position: relative;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        overflow: hidden;
+    }
+
+    .building {
+        width: 45px;
+        height: 0;
+        position: absolute;
+        bottom: 20px;
+        border-radius: 8px;
+        opacity: 0;
+        transition: height 1s, opacity 1s;
+    }
+
+    .bio {
+        background-color: #d8c9a3;
+    }
+
+    .port {
+        background-color: #9b9b9b;
+    }
+
+    .energy-box {
+        width: 85%;
+        height: 18px;
+        background-color: #333;
+        margin: auto;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .energy-fill {
+        height: 100%;
+        width: 0%;
+        transition: width 3s;
+    }
+
+    .low {
+        background-color: #4CAF50;
+    }
+
+    .high {
+        background-color: #e53935;
+    }
+
+    button {
+        margin-top: 30px;
+        padding: 12px 25px;
+        font-size: 16px;
+        background-color: #f0c36d;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #e0b85a;
+    }
+
+    p {
+        font-size: 14px;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Mars Settlement Construction Simulation</h1>
+<h3>Energy Consumption: Biocement vs Portland Cement</h3>
+
+<div id="main">
+
+    <!-- BIOCEMENT ZONE -->
+    <div class="zone">
+        <h3>Biocement Settlement (Low Energy)</h3>
+
+        <div class="surface" id="bioSurface">
+            <div class="building bio" style="left: 40px;"></div>
+            <div class="building bio" style="left: 110px;"></div>
+            <div class="building bio" style="left: 180px;"></div>
+            <div class="building bio" style="left: 250px;"></div>
+            <div class="building bio" style="left: 320px;"></div>
+        </div>
+
+        <p>Energy Consumption</p>
+        <div class="energy-box">
+            <div id="bioEnergy" class="energy-fill low"></div>
+        </div>
+
+        <p>Low-temperature biological mineralisation</p>
+    </div>
+
+    <!-- PORTLAND ZONE -->
+    <div class="zone">
+        <h3>Portland Cement Settlement (High Energy)</h3>
+
+        <div class="surface" id="portSurface">
+            <div class="building port" style="left: 40px;"></div>
+            <div class="building port" style="left: 110px;"></div>
+            <div class="building port" style="left: 180px;"></div>
+            <div class="building port" style="left: 250px;"></div>
+            <div class="building port" style="left: 320px;"></div>
+        </div>
+
+        <p>Energy Consumption</p>
+        <div class="energy-box">
+            <div id="portEnergy" class="energy-fill high"></div>
+        </div>
+
+        <p>High-temperature kiln processing (~1450°C)</p>
+    </div>
+
+</div>
+
+<button onclick="runSimulation()">Run Simulation</button>
+
+<script>
+function runSimulation() {
+
+    let bioBuildings = document.querySelectorAll("#bioSurface .building");
+    let portBuildings = document.querySelectorAll("#portSurface .building");
+
+    bioBuildings.forEach((b, i) => {
+        setTimeout(() => {
+            b.style.opacity = 1;
+            b.style.height = "80px";
+        }, i * 700);
+    });
+
+    portBuildings.forEach((b, i) => {
+        setTimeout(() => {
+            b.style.opacity = 1;
+            b.style.height = "120px";
+        }, i * 500);
+    });
+
+    setTimeout(() => {
+        document.getElementById("bioEnergy").style.width = "35%";
+        document.getElementById("portEnergy").style.width = "90%";
+    }, 1500);
+}
+</script>
+
+</body>
+</html>
